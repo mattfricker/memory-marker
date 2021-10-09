@@ -12,7 +12,7 @@ services:
 
   memory-marker-api:
     build:
-      context: .
+      context: ./memory-marker-api
     environment:
       DB_SCHEMA: postgres
       DB_USER: ${POSTGRES_USER}
