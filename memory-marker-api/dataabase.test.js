@@ -57,15 +57,25 @@ test('get marker', async () => {
     expect(marker.url).toEqual('http://www.test.com');
 });
 
-test('delete marker', async () => {
-    expect.assertions(1);
+test('delete markers', async () => {
+    expect.assertions(3);
     await db.Marker.destroy({
         where: {
             id: 1
         }
     });
-    const marker = await db.Marker.findByPk(1);
-    expect(marker).toBeNull();
+    const markerOne = await db.Marker.findByPk(1);
+    let markerTwo = await db.Marker.findByPk(2);
+    expect(markerOne).toBeNull();
+    expect(markerTwo.url).toBeDefined();
+
+    await db.Marker.destroy({
+        where: {
+            id: 2
+        }
+    });
+    markerTwo = await db.Marker.findByPk(2);
+    expect(markerTwo).toBeNull();
 });
 
 afterAll(async () => {

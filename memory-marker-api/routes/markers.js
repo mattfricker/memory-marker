@@ -12,6 +12,21 @@ router.get("/all", function(req, res) {
       });
 });;
 
+router.get("/:id", function(req, res) {
+    Marker.findByPk(req.params.id, {include: Topic})
+        .then(marker => {
+            const status = marker ? 200 : 404;
+            if(marker) {
+                res.status(200).send(JSON.stringify(marker))
+            } else {
+                res.status(status).send(`A Marker with id ${req.params.id} does not exist.`);
+            }
+        })
+        .catch(err => {
+            res.status(500).send(JSON.stringify(err));
+        });
+});
+
 router.put("/", function(req, res) {
     let marker = Marker.create({
         title: req.body.title,
@@ -31,7 +46,20 @@ router.put("/", function(req, res) {
     .catch(err => {
         res.status(500).send(JSON.stringify(err));
     });
+});
 
+router.delete("/:id", function(req, res) {
+    Marker.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(marker => {
+            const status = marker > 0 ? 200 : 404;
+            res.status(status).send();
+        })
+        .catch(err => {
+            res.status(500).send(JSON.stringify(err));
+        });
 });
 
 module.exports = router;
