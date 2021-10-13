@@ -59,8 +59,20 @@ const MarkerTopics = sequelize.define('MarkerTopics', {
 Marker.belongsToMany(Topic, {through: MarkerTopics});
 Topic.belongsToMany(Marker, {through: MarkerTopics});
 
+async function addTopicsFromRequest(marker, topicIds) {
+    let topics = await Topic.findAll({
+        where: {
+            id: {
+                [Sequelize.Op.or]: topicIds
+            }
+        }
+    });
+    return await marker.addTopics(topics);
+}
+
 module.exports = {
     sequelize: sequelize,
     Marker: Marker,
-    Topic: Topic
+    Topic: Topic,
+    addTopicsFromRequest: addTopicsFromRequest
 };
