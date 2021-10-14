@@ -4,7 +4,7 @@ const { Marker, Topic } = require('../database/model');
 const queryUtils = require('../database/queryUtils')
 
 router.get("/all", function(req, res) {
-  Marker.findAll({include: Topic})
+    queryUtils.getAllMarkers()
       .then(markers => {
           res.status(200).send(JSON.stringify(markers));
       })
@@ -14,7 +14,7 @@ router.get("/all", function(req, res) {
 });;
 
 router.get("/:id", function(req, res) {
-    Marker.findByPk(req.params.id, {include: Topic})
+    queryUtils.findMarkerById(req.params.id)
         .then(marker => {
             const status = marker ? 200 : 404;
             if(marker) {
@@ -29,32 +29,26 @@ router.get("/:id", function(req, res) {
 });
 
 router.put("/", function(req, res) {
-    let marker = Marker.create({
-        title: req.body.title,
-        description: req.body.description,
-        url: req.body.url,
-        id: req.body.id,
-    }).then(marker => {
-        let topicIds = req.body.topicIds;
-        if(topicIds && topicIds.length > 0) {
-            queryUtils.addTopicsFromRequest(marker, topicIds).then(result => {
+    let {title, description, url } = req.body;
+    queryUtils.createNewMarker(title, description, url)
+        .then(marker => {
+            let topicIds = req.body.topicIds;
+            if(topicIds && topicIds.length > 0) {
+                queryUtils.addTopicsFromRequest(marker, topicIds).then(result => {
+                    res.status(200).send(JSON.stringify(marker));
+                });
+            } else {
                 res.status(200).send(JSON.stringify(marker));
-            });
-        } else {
-            res.status(200).send(JSON.stringify(marker));
-        }
-    })
-    .catch(err => {
-        res.status(500).send(JSON.stringify(err));
-    });
+            }
+        })
+        .catch(err => {
+            res.status(500).send(JSON.stringify(err));
+        });
 });
 
 router.delete("/:id", function(req, res) {
-    Marker.destroy({
-        where: {
-            id: req.params.id
-        }
-    }).then(marker => {
+   queryUtils.deleteMarkerById(req.params.id)
+        .then(marker => {
             const status = marker > 0 ? 200 : 404;
             res.status(status).send();
         })

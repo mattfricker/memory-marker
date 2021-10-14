@@ -11,7 +11,4 @@ const sequelize = new Sequelize(process.env.DB_SCHEMA || 'postgres',
                                     }
                                 });
 
-
-
-
 module.exports = sequelize;
