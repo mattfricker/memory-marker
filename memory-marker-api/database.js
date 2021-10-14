@@ -70,9 +70,18 @@ async function addTopicsFromRequest(marker, topicIds) {
     return await marker.addTopics(topics);
 }
 
+async function getMarkerCountForTopicId(topicId) {
+    return await MarkerTopics.count({
+        where: {
+            TopicId: topicId
+        },
+    })
+}
+
 module.exports = {
     sequelize: sequelize,
     Marker: Marker,
     Topic: Topic,
-    addTopicsFromRequest: addTopicsFromRequest
+    addTopicsFromRequest: addTopicsFromRequest,
+    getMarkerCountForTopicId: getMarkerCountForTopicId
 };
