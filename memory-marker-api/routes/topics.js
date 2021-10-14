@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getMarkerCountForTopicId, Topic } = require('../database.js');
+const { Topic } = require('../database/model');
+const queryUtils = require('../database/queryUtils')
 
 router.get("/all", function(req, res) {
   Topic.findAll()
@@ -41,9 +42,9 @@ router.put("/", function(req, res) {
 });
 
 router.delete("/:id", async function(req, res) {
-    let markerCountForTopic = await getMarkerCountForTopicId(req.params.id);
+    let markerCountForTopic = await queryUtils.getMarkerCountForTopicId(req.params.id);
     if(markerCountForTopic > 0) {
-        returnres.status(409).send(JSON.stringify(`Cannot delete Topic that is being used by ${markerCountForTopic} Markers`))
+        return res.status(409).send(JSON.stringify(`Cannot delete Topic that is being used by ${markerCountForTopic} Markers`))
     } else {
         Topic.destroy({
             where: {
@@ -53,9 +54,9 @@ router.delete("/:id", async function(req, res) {
                 const status = topic > 0 ? 200 : 404;
                 res.status(status).send();
             })
-            .catch(err => {
-                res.status(500).send(JSON.stringify(err));
-            });
+        .catch(err => {
+            res.status(500).send(JSON.stringify(err));
+        });
     }
 });
 

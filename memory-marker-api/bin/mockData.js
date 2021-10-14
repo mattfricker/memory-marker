@@ -1,30 +1,31 @@
-const db = require('../database');
+const db = require('../database/database');
+const { Marker, Topic } = require('../database/model');
 (async function() {
-    await db.sequelize.sync({ force: true });
-    let recipe = await db.Topic.create({
+    await db.sync({ force: true });
+    let recipe = await Topic.create({
         name: "Recipe",
         description: "Ingredients and steps to making food"
     });
-    let paleo = await db.Topic.create({
+    let paleo = await Topic.create({
         name: "Paleo",
         description: "Foods that do not contain grains, seed oils, legumes, etc."
     });
-    let codingTutorial = await db.Topic.create({
+    let codingTutorial = await Topic.create({
         name: "Coding Tutorial",
         description: "Content that teaches a coding concept or tool"
     });
-    let javascript = await db.Topic.create({
+    let javascript = await Topic.create({
         name: "JavaScript",
     });
-    let java = await db.Topic.create({
+    let java = await Topic.create({
         name: "Java",
     });
-    let book = await db.Topic.create({
+    let book = await Topic.create({
         name: "Book",
     })
     
     
-    let mayo = await db.Marker.create({
+    let mayo = await Marker.create({
         title: "Avocado Oil Mayo",
         description: "Mayonnaise that uses avocado oil",
         url: "https://www.wholesomeyum.com/keto-paleo-mayo-recipe-avocado-oil",
@@ -33,7 +34,7 @@ const db = require('../database');
     mayo.addTopic(recipe.id);
     mayo.addTopic(paleo.id);
 
-    let es6 = await db.Marker.create({
+    let es6 = await Marker.create({
         title: "ES6 and Beyond",
         description: "Book about ES2015+ features",
         url: "https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/es6%20&%20beyond/README.md#you-dont-know-js-es6--beyond",

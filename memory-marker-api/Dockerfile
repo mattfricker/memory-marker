@@ -8,4 +8,4 @@ RUN npm install pm2 -g
 RUN chown -R app /opt/app
 USER app
 EXPOSE 3000
-CMD [ "pm2-runtime", "app.js" ]
+CMD [ "pm2-runtime", "server.js" ]

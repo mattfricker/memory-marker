@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var { Marker, Topic, addTopicsFromRequest } = require('../database.js')
+const express = require('express');
+const router = express.Router();
+const { Marker, Topic } = require('../database/model');
+const queryUtils = require('../database/queryUtils')
 
 router.get("/all", function(req, res) {
   Marker.findAll({include: Topic})
@@ -36,7 +37,7 @@ router.put("/", function(req, res) {
     }).then(marker => {
         let topicIds = req.body.topicIds;
         if(topicIds && topicIds.length > 0) {
-            addTopicsFromRequest(marker, topicIds).then(result => {
+            queryUtils.addTopicsFromRequest(marker, topicIds).then(result => {
                 res.status(200).send(JSON.stringify(marker));
             });
         } else {
