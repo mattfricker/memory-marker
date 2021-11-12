@@ -6,7 +6,7 @@
     "pm2": "pm2 start processes.json --no-daemon",
     "migrate": "node ./bin/migrate.js",
     "migrateMock": "node ./bin/mockData.js",
-    "start": "node ./bin/www",
+    "start": "nodemon server.js",
     "test": "jest"
   },
   "dependencies": {
