@@ -1,4 +1,4 @@
-const db = require('../database/database');
+const db = require('../database/databaseFactory');
 const { Marker, Topic } = require('../database/model');
 (async function() {
     await db.sync({ force: true });

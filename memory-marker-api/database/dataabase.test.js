@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('./databaseFactory');
 const { Marker, Topic} = require('./model');
 const queryUtils = require('./queryUtils');
 

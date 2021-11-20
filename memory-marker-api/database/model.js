@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('./databaseFactory');
 const Sequelize = require('sequelize');
 const Marker = db.define('Marker', {
     title: {
