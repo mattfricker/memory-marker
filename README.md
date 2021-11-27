@@ -2,6 +2,8 @@
 ## Overview
 The purpose of this project is to store and retrieve helpful resources along with additional information that is relevant. A primary use case is to store a link to a website with a recipe, along with a note that details any alterations to the recipe that you prefer. In this case, you would create a "Marker" to store the link to the recipe and the note about alterations. This Marker could then have any number of custom "Topics" such as "Recipe", "Soup" or "Dessert" that are attached to it.
 
+![Image of the database design generated on dbdiagram.io](memory-marker-api/database/design.png)
+
 ## Why it is being created
 To try out a variety of technologies. The heart of this project will be the memory-marker-api which will serve as a REST API for experimentations with UI frameworks, server side rendering, and static site generation.
 
