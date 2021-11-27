@@ -3,7 +3,7 @@ RUN mkdir -p /opt/app
 WORKDIR /opt/app
 RUN  adduser -S app
 COPY . .
-RUN npm install
+RUN npm install --only=prod
 RUN npm install pm2 -g
 RUN chown -R app /opt/app
 USER app

@@ -1,0 +1,22 @@
+Table markers {
+  id int [pk, increment] // auto-increment
+  title varchar
+  description varchar
+  url varchar
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table topics {
+  id int [pk, increment]
+  name varchar
+  description varchar
+  createdAt timestamp
+  updatedAt timestamp
+ }
+ 
+ Table marker_topics {
+   markerId int [ref: > markers.id]
+   topicId int [ref: > topics.id]
+   createdAt timestamp
+ }

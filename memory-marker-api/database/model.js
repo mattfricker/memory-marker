@@ -1,6 +1,6 @@
 const db = require('./databaseFactory');
 const Sequelize = require('sequelize');
-const Marker = db.define('Marker', {
+const Marker = db.define('marker', {
     title: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -17,7 +17,7 @@ const Marker = db.define('Marker', {
     }
 });
 
-const Topic = db.define('Topic', {
+const Topic = db.define('topic', {
     name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -29,21 +29,24 @@ const Topic = db.define('Topic', {
     }
 })
 
-const MarkerTopic = db.define('MarkerTopic', {
-    MarkerId: {
+const MarkerTopic = db.define('marker_topic', {
+    markerId: {
         type: Sequelize.INTEGER,
         references: {
             model: Marker,
             key: 'id'
         }
     },
-    TopicId: {
+    topicId: {
         type: Sequelize.INTEGER,
         references: {
             model: Topic,
             key: 'id'
         }
     }
+},
+{
+    updatedAt: false
 });
 
 Marker.belongsToMany(Topic, {through: MarkerTopic});
