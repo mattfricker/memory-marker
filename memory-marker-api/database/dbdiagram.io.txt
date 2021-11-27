@@ -1,4 +1,4 @@
-Table markers {
+Table marker {
   id int [pk, increment] // auto-increment
   title varchar
   description varchar
@@ -7,7 +7,7 @@ Table markers {
   updatedAt timestamp
 }
 
-Table topics {
+Table topic {
   id int [pk, increment]
   name varchar
   description varchar
@@ -15,8 +15,8 @@ Table topics {
   updatedAt timestamp
  }
  
- Table marker_topics {
-   markerId int [ref: > markers.id]
-   topicId int [ref: > topics.id]
+ Table marker_topic {
+   marker_id int [ref: > marker.id]
+   topic_id int [ref: > topic.id]
    createdAt timestamp
  }

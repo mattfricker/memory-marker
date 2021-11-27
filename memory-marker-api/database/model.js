@@ -1,6 +1,6 @@
 const db = require('./databaseFactory');
 const Sequelize = require('sequelize');
-const Marker = db.define('marker', {
+const Marker = db.define('Marker', {
     title: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -15,9 +15,13 @@ const Marker = db.define('marker', {
         allowNull: false,
         unique: true
     }
+},
+{
+    freezeTableName: true,
+    tableName: 'marker'
 });
 
-const Topic = db.define('topic', {
+const Topic = db.define('Topic', {
     name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -27,17 +31,21 @@ const Topic = db.define('topic', {
         type: Sequelize.TEXT,
         allowNull: true
     }
+},
+{
+    freezeTableName: true,
+    tableName: 'topic'
 })
 
-const MarkerTopic = db.define('marker_topic', {
-    markerId: {
+const MarkerTopic = db.define('MarkerTopic', {
+    marker_id: {
         type: Sequelize.INTEGER,
         references: {
             model: Marker,
             key: 'id'
         }
     },
-    topicId: {
+    topic_id: {
         type: Sequelize.INTEGER,
         references: {
             model: Topic,
@@ -46,7 +54,9 @@ const MarkerTopic = db.define('marker_topic', {
     }
 },
 {
-    updatedAt: false
+    updatedAt: false,
+    freezeTableName: true,
+    tableName: 'marker_topic'
 });
 
 Marker.belongsToMany(Topic, {through: MarkerTopic});
