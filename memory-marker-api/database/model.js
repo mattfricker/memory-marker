@@ -18,7 +18,8 @@ const Marker = db.define('Marker', {
 },
 {
     freezeTableName: true,
-    tableName: 'marker'
+    tableName: 'marker',
+    underscored: 'true'
 });
 
 const Topic = db.define('Topic', {
@@ -34,7 +35,8 @@ const Topic = db.define('Topic', {
 },
 {
     freezeTableName: true,
-    tableName: 'topic'
+    tableName: 'topic',
+    underscored: 'true'
 })
 
 const MarkerTopic = db.define('MarkerTopic', {
@@ -56,7 +58,8 @@ const MarkerTopic = db.define('MarkerTopic', {
 {
     updatedAt: false,
     freezeTableName: true,
-    tableName: 'marker_topic'
+    tableName: 'marker_topic',
+    underscored: 'true'
 });
 
 Marker.belongsToMany(Topic, {through: MarkerTopic});

@@ -3,20 +3,20 @@ Table marker {
   title varchar
   description varchar
   url varchar
-  createdAt timestamp
-  updatedAt timestamp
+  created_at timestamp
+  updated_at timestamp
 }
 
 Table topic {
   id int [pk, increment]
   name varchar
   description varchar
-  createdAt timestamp
-  updatedAt timestamp
+  created_at timestamp
+  updated_at timestamp
  }
  
  Table marker_topic {
    marker_id int [ref: > marker.id]
    topic_id int [ref: > topic.id]
-   createdAt timestamp
+   created_at timestamp
  }
